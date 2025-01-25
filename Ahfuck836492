@@ -1,0 +1,342 @@
+print("Natural Disaster Survival Found")
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+Rayfield:Notify({
+    Title = "Natural Disaster Survival Game Detected!",
+    Content = "Loading the scripts...",
+    Duration = 6.5,
+    Image = 4483362458,
+})
+
+local Window = Rayfield:CreateWindow({
+    Name = "Lukas Hub X 1.0",
+    Icon = 0,
+    LoadingTitle = "Lukas hub X 1.0",
+    LoadingSubtitle = "by lukas",
+    Theme = "Default",
+    DisableRayfieldPrompts = false,
+    DisableBuildWarnings = false,
+    ConfigurationSaving = {
+        Enabled = true,
+        FolderName = nil,
+        FileName = "Big Hub"
+    },
+    Discord = {
+        Enabled = true,
+        Invite = "https://discord.gg/wHfqVEwS",
+        RememberJoins = true
+    },
+    KeySystem = false,
+    KeySettings = {
+        Title = "Lukas Hub X KeySystem",
+        Subtitle = "Only Check Pastebin To Get Key!",
+        Note = "No key",
+        FileName = "Key",
+        SaveKey = true,
+        GrabKeyFromSite = false,
+        Key = {"skibidi"}
+    }
+})
+
+local Tab = Window:CreateTab("Universal", 4483362458)
+
+local Section = Tab:CreateSection("Walk Speed")
+
+local SpeedValue = 16 -- Default speed value
+local Input = Tab:CreateInput({
+    Name = "Set WalkSpeed",
+    CurrentValue = tostring(SpeedValue),
+    PlaceholderText = "Enter WalkSpeed",
+    RemoveTextAfterFocusLost = false,
+    Flag = "Input1",
+    Callback = function(Text)
+        SpeedValue = tonumber(Text) or SpeedValue
+    end,
+})
+
+-- Adding a button to activate the speed in the textbox
+local Button = Tab:CreateButton({
+    Name = "Activate WalkSpeed",
+    Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = SpeedValue
+    end,
+})
+
+-- Adding a toggle to loop execute the speed
+local LoopSpeed = false
+local Toggle = Tab:CreateToggle({
+    Name = "Loop WalkSpeed",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        LoopSpeed = Value
+        while LoopSpeed do
+            game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = SpeedValue
+            wait(0.01) -- Adjust the interval as needed
+        end
+    end,
+})
+
+local Section = Tab:CreateSection("Jump Buffs")
+
+local JumpValue = 50 -- Default Jump value
+local Input = Tab:CreateInput({
+    Name = "Set JumpPower",
+    CurrentValue = tostring(JumpValue),
+    PlaceholderText = "Enter Jumppower",
+    RemoveTextAfterFocusLost = false,
+    Flag = "Input1",
+    Callback = function(Text)
+        JumpValue = tonumber(Text) or JumpValue
+    end,
+})
+
+-- Adding a button to activate the speed in the textbox
+local Button = Tab:CreateButton({
+    Name = "Activate JumpPower",
+    Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = JumpValue
+    end,
+})
+
+-- Adding a toggle to loop execute the speed
+local LoopSpeed = false
+local Toggle = Tab:CreateToggle({
+    Name = "Loop Jumppower",
+    CurrentValue = false,
+    Flag = "Toggle1",
+    Callback = function(Value)
+        LoopSpeed = Value
+        while LoopSpeed do
+            game.Players.LocalPlayer.Character.Humanoid.JumpPower = JumpValue
+            wait(0.01) -- Adjust the interval as needed
+        end
+    end,
+})
+
+local InfiniteJumpEnabled = true
+Tab:CreateToggle({
+    Name = "Infinite Jump",
+    CurrentValue = false,
+    Flag = "InfiniteJumpToggle",
+    Callback = function(Value)
+        InfiniteJumpEnabled = Value
+    end,
+})
+
+-- Infinite Jump Function
+game:GetService("UserInputService").JumpRequest:Connect(function()
+    if InfiniteJumpEnabled then
+        local player = game:GetService("Players").LocalPlayer
+        if player and player.Character then
+            local humanoid = player.Character:FindFirstChildOfClass('Humanoid')
+            if humanoid then
+                humanoid:ChangeState("Jumping")
+            end
+        end
+    end
+end)
+
+local Section = Tab:CreateSection("Trolling")
+
+local hiddenfling = true
+local detection = Instance.new("Decal")
+detection.Name = "juisdfj0i32i0eidsuf0iok"
+detection.Parent = game:GetService("ReplicatedStorage")
+
+-- Define the fling function
+local function fling()
+    local hrp, c, vel, movel = nil, nil, nil, 0.1
+    while true do
+        game:GetService("RunService").Heartbeat:Wait()
+        if hiddenfling then
+            local lp = game.Players.LocalPlayer
+            while hiddenfling and not (c and c.Parent and hrp and hrp.Parent) do
+                game:GetService("RunService").Heartbeat:Wait()
+                c = lp.Character
+                hrp = c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
+            end
+            if hiddenfling then
+                vel = hrp.Velocity
+                hrp.Velocity = vel * 10000 + Vector3.new(0, 10000, 0)
+                game:GetService("RunService").RenderStepped:Wait()
+                if c and c.Parent and hrp and hrp.Parent then
+                    hrp.Velocity = vel
+                end
+                game:GetService("RunService").Stepped:Wait()
+                if c and c.Parent and hrp and hrp.Parent then
+                    hrp.Velocity = vel + Vector3.new(0, movel, 0)
+                    movel = movel * -1
+                end
+            end
+        end
+    end
+end
+
+-- Adding Toggle Button
+local Toggle = Tab:CreateToggle({
+    Name = "WalkFling (bug but still work)",
+    CurrentValue = false,
+    Flag = "Fling the player.", -- A flag to identify the toggle button in the script
+    Callback = function(Value)
+        hiddenfling = Value
+        print("Walkfling is now " .. tostring(hiddenfling))
+        if hiddenfling then
+            fling()
+        end
+    end,
+})
+
+local Tab = Window:CreateTab("Natural Disaster", 4483362458) -- Title, Image
+
+local Section = Tab:CreateSection("Teleportation")
+
+local Button = Tab:CreateButton({
+   Name = "Main Place",
+   Callback = function()
+local targetPosition = Vector3.new(-97.18463897705078, 47.80000305175781, 1.018392562866211) -- Change these values to your desired X, Y, Z coordinates
+       
+local function teleportPlayer()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    if character then
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    else
+        warn("Character not found!")
+    end
+end
+
+teleportPlayer()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Lobby (1)",
+   Callback = function()
+local targetPosition = Vector3.new(-268.7483825683594, 179.60000610351562, 301.0538024902344) -- Change these values to your desired X, Y, Z coordinates
+       
+local function teleportPlayer()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    if character then
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    else
+        warn("Character not found!")
+    end
+end
+
+teleportPlayer()
+   end,
+})
+
+local Button = Tab:CreateButton({
+   Name = "Lobby (2)",
+   Callback = function()
+local targetPosition = Vector3.new(-253.922607421875, 194.39993286132812, 297.95458984375) -- Change these values to your desired X, Y, Z coordinates
+       
+local function teleportPlayer()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    if character then
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    else
+        warn("Character not found!")
+    end
+end
+
+teleportPlayer()
+   end,
+})
+
+-- Define the target position using X, Y, Z coordinates
+local targetPosition = Vector3.new(-280.551, 166.5, 341.019) -- Change these values to your desired X, Y, Z coordinates
+
+-- Function to teleport the player
+local function teleportPlayer()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    
+    if character then
+        local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+        humanoidRootPart.CFrame = CFrame.new(targetPosition)
+    else
+        warn("Character not found!")
+    end
+end
+
+-- Create a toggle button in the UI to enable/disable teleportation
+local isTeleportEnabled = false
+Tab:CreateToggle({
+    Name = "Auto-Farm",
+    CurrentValue = false,
+    Flag = "AutoFarm", 
+    Callback = function(value)
+        isTeleportEnabled = value
+    end
+})
+
+-- Create a loop that runs every 0.01 seconds if teleportation is enabled
+local RunService = game:GetService("RunService")
+
+RunService.Heartbeat:Connect(function()
+    if isTeleportEnabled then
+        teleportPlayer()
+        -- Wait for 0.01 seconds before the next iteration
+        wait(0.01)
+    end
+end)
+
+local Section = Tab:CreateSection("Buffs")
+
+local runsvc = game:GetService("RunService")
+local heartbeat = runsvc.Heartbeat
+local rstepped = runsvc.RenderStepped
+
+local lp = game.Players.LocalPlayer
+
+local novel = Vector3.zero
+local noFallDamageEnabled = true -- Boolean variable to track toggle state
+
+local function nofalldamage(chr)
+    local root = chr:WaitForChild("HumanoidRootPart")
+    
+    if root then
+        local con
+        con = heartbeat:Connect(function()
+            if not root.Parent then
+                con:Disconnect()
+            end
+
+            -- Check the toggle state before executing the no-fall damage logic
+            if noFallDamageEnabled then
+                local oldvel = root.AssemblyLinearVelocity
+                root.AssemblyLinearVelocity = novel
+                
+                rstepped:Wait()
+                root.AssemblyLinearVelocity = oldvel
+            end
+        end)
+    end
+end
+
+nofalldamage(lp.Character)
+lp.CharacterAdded:Connect(nofalldamage)
+
+local Toggle = Tab:CreateToggle({
+    Name = "No Fall Damage",
+    Default = true,
+    Callback = function(value)
+        noFallDamageEnabled = value
+        if noFallDamageEnabled then
+            print("No Fall Damage Enabled")
+        else
+            print("No Fall Damage Disabled")
+        end
+    end
+})
